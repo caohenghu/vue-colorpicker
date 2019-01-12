@@ -24,6 +24,14 @@
                 />
             </div>
         </div>
+        <div class="github">
+            <a
+                href="https://github.com/caohenghu/vue-colorpicker2"
+                target="_blank"
+            >
+                Fork me on GitHub
+            </a>
+        </div>
     </div>
 </template>
 
@@ -110,6 +118,25 @@ export default {
             display: flex;
             justify-content: space-around;
             width: 100%;
+        }
+    }
+    .github {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 200px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        background: #a00;
+        text-align: center;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+        transform: rotate(45deg) translateX(60px);
+        a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
         }
     }
 }

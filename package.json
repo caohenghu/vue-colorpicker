@@ -16,7 +16,7 @@
   "main": "src/vue/main.js",
   "scripts": {
     "hot": "./node_modules/.bin/webpack-dev-server --env.config local --env.hot --env.local",
-    "demo": "./node_modules/.bin/webpack --env.config demo --env.pro",
+    "gh": "./node_modules/.bin/webpack --env.config gh --env.pro",
     "pro": "./node_modules/.bin/webpack --env.config pro --env.pro"
   },
   "devDependencies": {
