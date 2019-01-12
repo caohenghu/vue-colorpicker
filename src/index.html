@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <% for (lib of htmlWebpackPlugin.options.libs) { %>
+    <% if (lib.isAsync) { %>
+    <script src="<%= lib.url %>" async></script>
+    <% } else { %>
+    <script src="<%= lib.url %>"></script>
+    <% } %>
+    <% } %>
+</body>
+
+</html>
