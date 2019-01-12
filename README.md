@@ -28,7 +28,7 @@ $ yarn add vue-colorpicker2
 </template>
 
 <script>
-    import colorPicker from 'vue-colorpicker'
+    import colorPicker from 'vue-colorpicker2'
 
     export default {
         components: {
