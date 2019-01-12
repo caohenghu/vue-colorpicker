@@ -95,8 +95,8 @@ module.exports = (options) => {
         output: {
             publicPath: '//' + env.host.cdn + (options.hot ? ':' + port : '') + '/vue-colorpicker/',
             path: path.resolve(__dirname, buildDir),
-            filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js',
-            chunkFilename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js' // 本地开发如果使用hash，watch会影响到公用js
+            filename: 'js/[name].js',
+            chunkFilename: 'js/[name].js' // 本地开发如果使用hash，watch会影响到公用js
         },
         module: {
             rules
