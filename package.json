@@ -1,10 +1,10 @@
 {
-  "name": "vue-colorpicker",
+  "name": "@caohenghu/vue-colorpicker",
   "version": "1.0.0",
   "description": "Colorpicker of Vue Components",
   "keywords": [
-    "color",
-    "vuejs"
+    "colorpicker",
+    "vue"
   ],
   "repository": {
     "type": "git",

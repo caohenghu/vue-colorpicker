@@ -1,14 +1,21 @@
 # vue-colorpicker
 
-## installation
 
-### yarn
+[![npm](https://img.shields.io/npm/v/vue-color.svg)](https://www.npmjs.com/package/@caohenghu/vue-colorpicker)
 
-```js
-yarn add vue-colorpicker
+## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
+
+![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview.jpg)
+
+## Installation
+
+### Yarn
+
+```bash
+$ yarn add vue-colorpicker
 ```
 
-### usage
+## Usage
 
 ```html
 <template>
@@ -56,15 +63,15 @@ yarn add vue-colorpicker
 </script>
 ```
 
-### options
+## Options
 
-#### color
+### color
 
 type: String, rgba or hex
 
 why not v-model? because i think it's not necessary here.
 
-#### change
+### change
 
 type: Function
 
@@ -83,7 +90,7 @@ change(rgba) {
 }
 ```
 
-#### openSucker
+### openSucker
 
 type: Function
 
@@ -95,11 +102,11 @@ openSucker(isOpen) {
 }
 ```
 
-#### sucker-canvas
+### sucker-canvas
 
 type: HTMLCanvasElement, default: null
 
-#### sucker-area
+### sucker-area
 
 type: Array, like `[x1, y1, x2, y2]`
 
