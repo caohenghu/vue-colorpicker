@@ -1,18 +1,15 @@
-# vue-colorpicker
+# vue-colorpicker2
 
+## [LiveDemo](https://caohenghu.github.io/vue-colorpicker2/)
 
-[![npm](https://img.shields.io/npm/v/vue-color.svg)](https://www.npmjs.com/package/@caohenghu/vue-colorpicker)
-
-## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
-
-![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview.jpg)
+![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker2/master/src/img/preview.jpg)
 
 ## Installation
 
 ### Yarn
 
 ```bash
-$ yarn add vue-colorpicker
+$ yarn add vue-colorpicker2
 ```
 
 ## Usage

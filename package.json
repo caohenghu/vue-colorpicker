@@ -1,14 +1,15 @@
 {
-  "name": "@caohenghu/vue-colorpicker",
+  "name": "vue-colorpicker2",
   "version": "1.0.0",
   "description": "Colorpicker of Vue Components",
   "keywords": [
+    "color",
     "colorpicker",
     "vue"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/caohenghu/vue-colorpicker"
+    "url": "https://github.com/caohenghu/vue-colorpicker2"
   },
   "author": "caohenghu <214970000@qq.com>",
   "license": "MIT",
