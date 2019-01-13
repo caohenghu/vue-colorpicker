@@ -5,21 +5,18 @@
             :style="{background: color}"
         >
             <div class="title">
-                vue-colorpicker
+                vue-colorpicker2
             </div>
             <div class="cover">
                 <div v-if="isSucking">
-                    <img
-                        ref="cover"
-                        crossorigin="Anonymous"
-                        src="../img/cover.jpg"
-                    >
+                    <img ref="cover">
                 </div>
                 <color-picker
                     :color="color"
+                    :sucker-hide="false"
                     :sucker-canvas="suckerCanvas"
                     :sucker-area="suckerArea"
-                    @change="change"
+                    @changeColor="changeColor"
                     @openSucker="openSucker"
                 />
             </div>
@@ -52,18 +49,20 @@ export default {
         }
     },
     methods: {
-        change(rgba) {
-            this.color = rgba.toRgbaString()
+        changeColor(color) {
+            this.color = color.rgba.toRgbaString()
         },
         openSucker(isOpen) {
             if (isOpen) {
                 this.isSucking = true
                 const image = new Image()
                 image.onload = () => {
+                    const cover = this.$refs.cover
+                    cover.setAttribute('crossorigin', 'Anonymous')
+                    cover.src = imgCover
                     setTimeout(() => {
-                        this.$refs.cover.src = imgCover
-                        const coverRect = this.$refs.cover.getBoundingClientRect()
-                        const canvas = this.createCanvas(coverRect)
+                        const coverRect = cover.getBoundingClientRect()
+                        const canvas = this.createCanvas(cover, coverRect)
                         document.body.appendChild(canvas)
                         this.suckerCanvas = canvas
                         this.suckerArea = [
@@ -72,7 +71,7 @@ export default {
                             coverRect.left + coverRect.width, 
                             coverRect.top + coverRect.height
                         ]
-                    })
+                    }, 10)
                 }
                 image.src = imgCover
             } else {
@@ -80,12 +79,13 @@ export default {
                 this.isSucking = false
             }
         },
-        createCanvas(coverRect) {
+        createCanvas(cover, coverRect) {
             const canvas = document.createElement('canvas')
             const ctx = canvas.getContext('2d')
             canvas.width = coverRect.width
             canvas.height = coverRect.height
-            ctx.drawImage(this.$refs.cover, 0, 0, coverRect.width, coverRect.height)
+            
+            ctx.drawImage(cover, 0, 0, coverRect.width, coverRect.height)
             Object.assign(canvas.style, {
                 position: 'absolute',
                 left: coverRect.left + 'px',

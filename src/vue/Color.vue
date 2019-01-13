@@ -50,7 +50,7 @@
                 />
             </div>
             <svg
-                v-if="!isSucking"
+                v-if="!suckerHide && !isSucking"
                 :class="{active: isOpenSucker}"
                 class="sucker"
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@
                 <path d="M13.1,8.2l5.6,5.6c0.4,0.4,0.5,1.1,0.1,1.5s-1.1,0.5-1.5,0.1c0,0-0.1,0-0.1-0.1l-1.4-1.4l-7.7,7.7C7.9,21.9,7.6,22,7.3,22H3.1C2.5,22,2,21.5,2,20.9l0,0v-4.2c0-0.3,0.1-0.6,0.3-0.8l5.8-5.8C8.5,9.7,9.2,9.6,9.7,10s0.5,1.1,0.1,1.5c0,0,0,0.1-0.1,0.1l-5.5,5.5v2.7h2.7l7.4-7.4L8.7,6.8c-0.5-0.4-0.5-1-0.1-1.5s1.1-0.5,1.5-0.1c0,0,0.1,0,0.1,0.1l1.4,1.4l3.5-3.5c1.6-1.6,4.1-1.6,5.8-0.1c1.6,1.6,1.6,4.1,0.1,5.8L20.9,9l-3.6,3.6c-0.4,0.4-1.1,0.5-1.5,0.1"/>
             </svg>
             <svg
-                v-if="isSucking"
+                v-if="!suckerHide && isSucking"
                 class="sucker"
                 viewBox="-16 -16 68 68"
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,10 +124,18 @@
             <li
                 v-for="item in colorsDefault"
                 :key="item"
-                :style="{background: item}"
                 class="item"
                 @click="selectColor(item)"
-            />
+            >
+                <div
+                    :style="{background: `url(${imgAlphaBase64})`}"
+                    class="alpha"
+                />
+                <div
+                    :style="{background: item}"
+                    class="color"
+                />
+            </li>
         </ul>
         <ul
             v-if="colorsHistory.length"
@@ -159,7 +167,11 @@ export default {
     props: {
         color: {
             type: String,
-            default: '#ff00ff'
+            default: '#000000'
+        },
+        suckerHide: {
+            type: Boolean,
+            default: true
         },
         suckerCanvas: {
             type: null, // HTMLCanvasElement
@@ -173,12 +185,12 @@ export default {
             type: Array,
             default: () => [
                 '#000000', '#FFFFFF', '#FF1900', '#F47365', '#FFB243', '#FFE623', '#6EFF2A', '#1BC7B1',
-                '#00BEFF', '#2E81FF', '#5D61FF', '#FF89CF', '#FC3CAD', '#BF3DCE', '#8E00A7', '#6600A4'
+                '#00BEFF', '#2E81FF', '#5D61FF', '#FF89CF', '#FC3CAD', '#BF3DCE', '#8E00A7', 'rgba(0,0,0,0)'
             ]
         },
         colorsHistoryKey: {
             type: String,
-            default: 'hu-color-history'
+            default: 'vue-colorpicker2-history'
         }
     },
     data() {
@@ -232,8 +244,11 @@ export default {
         }
     },
     watch: {
-        rgba(newVal) {
-            this.$emit('change', newVal)
+        rgba() {
+            this.$emit('changeColor', {
+                rgba: this.rgba,
+                hsv: this.hsv
+            })
         },
         suckerCanvas(newVal) {
             this.isSucking = false
@@ -786,7 +801,7 @@ export default {
             }
             .alpha {
                 height: 100%;
-                border-radius: 3px;
+                border-radius: 4px; // 大一像素，否则四个角会看到白点
             }
             .color {
                 position: absolute;
