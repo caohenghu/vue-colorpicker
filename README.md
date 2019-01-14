@@ -1,13 +1,13 @@
 # vue-colorpicker2
 
-## [LiveDemo](https://caohenghu.github.io/vue-colorpicker2/)
+## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
 
-![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker2/master/src/img/preview.jpg)
+![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview.jpg)
 
 ## Install
 
 ```bash
-$ yarn add vue-colorpicker2
+$ yarn add @caohenghu/vue-colorpicker
 ```
 
 ## Example
@@ -27,7 +27,7 @@ $ yarn add vue-colorpicker2
 </template>
 
 <script>
-    import colorPicker from 'vue-colorpicker2'
+    import colorPicker from '@caohenghu/vue-colorpicker'
 
     export default {
         components: {
@@ -66,7 +66,7 @@ name | type | default | desc
 ---|---|---|---
 color | String | `#000000` | `rgba` or `hex`
 colors-default | Array | `['#000000', '#FFFFFF', '#FF1900', '#F47365', '#FFB243', '#FFE623', '#6EFF2A', '#1BC7B1', '#00BEFF', '#2E81FF', '#5D61FF', '#FF89CF', '#FC3CAD', '#BF3DCE', '#8E00A7', 'rgba(0,0,0,0)']` | like `['#ff00ff', '#0f0f0f', ...]`
-colors-history-key | String | `vue-colorpicker2-history` | 
+colors-history-key | String | `vue-colorpicker-history` | 
 sucker-hide | Boolean | `true` | `true` or `false`
 sucker-canvas | HTMLCanvasElement | `null` | like `document.createElement('canvas')`
 sucker-area | Array | `[]` | like `[x1, y1, x2, y2]`

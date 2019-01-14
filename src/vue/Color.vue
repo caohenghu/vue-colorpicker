@@ -190,7 +190,7 @@ export default {
         },
         colorsHistoryKey: {
             type: String,
-            default: 'vue-colorpicker2-history'
+            default: 'vue-colorpicker-history'
         }
     },
     data() {

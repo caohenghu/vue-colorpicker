@@ -5,7 +5,7 @@
             :style="{background: color}"
         >
             <div class="title">
-                vue-colorpicker2
+                vue-colorpicker
             </div>
             <div class="cover">
                 <div v-if="isSucking">
@@ -23,7 +23,7 @@
         </div>
         <div class="github">
             <a
-                href="https://github.com/caohenghu/vue-colorpicker2"
+                href="https://github.com/caohenghu/vue-colorpicker"
                 target="_blank"
             >
                 Fork me on GitHub

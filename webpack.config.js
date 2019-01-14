@@ -60,7 +60,7 @@ module.exports = (options) => {
             use: [{
                 loader: 'url-loader',
                 options: {
-                    name: 'images/[name].[ext]',
+                    name: 'images/[name]-[hash:8].[ext]',
                     limit: 1000
                 }
             }]
@@ -93,10 +93,10 @@ module.exports = (options) => {
             ]
         },
         output: {
-            publicPath: '//' + env.host.cdn + (options.hot ? ':' + port : '') + '/vue-colorpicker2/',
+            publicPath: '//' + env.host.cdn + (options.hot ? ':' + port : '') + '/vue-colorpicker/',
             path: path.resolve(__dirname, buildDir),
-            filename: 'js/[name].js',
-            chunkFilename: 'js/[name].js' // 本地开发如果使用hash，watch会影响到公用js
+            filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js',
+            chunkFilename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js' // 本地开发如果使用hash，watch会影响到公用js
         },
         module: {
             rules

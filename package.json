@@ -1,5 +1,5 @@
 {
-  "name": "vue-colorpicker2",
+  "name": "@caohenghu/vue-colorpicker",
   "version": "1.0.0",
   "description": "Colorpicker of Vue Components",
   "keywords": [
@@ -9,14 +9,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/caohenghu/vue-colorpicker2"
+    "url": "https://github.com/caohenghu/vue-colorpicker"
   },
-  "author": "caohenghu <214970000@qq.com>",
+  "author": "caohenghu <caohenghu@gmail.com>",
   "license": "MIT",
   "main": "src/vue/main.js",
   "scripts": {
     "hot": "./node_modules/.bin/webpack-dev-server --env.config local --env.hot --env.local",
-    "gh": "./node_modules/.bin/webpack --env.config gh --env.pro",
+    "gh": "node build/gh.js",
     "pro": "./node_modules/.bin/webpack --env.config pro --env.pro"
   },
   "devDependencies": {
@@ -25,6 +25,7 @@
     "eslint": "^5.12.0",
     "eslint-plugin-vue": "^5.1.0",
     "file-loader": "^3.0.1",
+    "gh-pages": "^2.0.1",
     "html-webpack-harddisk-plugin": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.11.0",
