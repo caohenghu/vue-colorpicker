@@ -1,4 +1,4 @@
-# vue-colorpicker2
+# vue-colorpicker
 
 ## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
 
