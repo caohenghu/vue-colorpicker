@@ -20,7 +20,7 @@ $ yarn add @caohenghu/vue-colorpicker
             :sucker-hide="false"
             :sucker-canvas="suckerCanvas"
             :sucker-area="suckerArea"
-            @change="change"
+            @changeColor="changeColor"
             @openSucker="openSucker"
         />
     </div>
@@ -42,7 +42,7 @@ $ yarn add @caohenghu/vue-colorpicker
             }
         },
         methods: {
-            change(color) {
+            changeColor(color) {
                 const {rgba: {r, g, b, a}} = color
                 this.color = `rgba(${r, g, b, a})`
             },
