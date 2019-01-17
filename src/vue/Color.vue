@@ -293,7 +293,8 @@ export default {
             const y = clientY - domTop
             const ctx = this.suckerCanvas.getContext('2d')
             const imgData = ctx.getImageData(Math.min(x, width - 1), Math.min(y, height - 1), 1, 1)
-            const [r, g, b, a] = imgData.data
+            let [r, g, b, a] = imgData.data
+            a = parseFloat((a / 255).toFixed(2))
             const style = this.suckerPreview.style
             Object.assign(style, {
                 position: 'absolute',
@@ -529,8 +530,9 @@ export default {
                 const y = clientY - top
                 const ctx = dom.getContext('2d')
                 const imgData = ctx.getImageData(Math.min(x, width - 1), Math.min(y, height - 1), 1, 1)
-                const [r, g, b] = imgData.data
-                this.setColorValue({r, g, b})
+                let [r, g, b, a] = imgData.data
+                a = parseFloat((a / 255).toFixed(2))
+                this.setColorValue({r, g, b, a})
                 this.setColorPos()
                 this.renderSaturation(this.$refs.canvasSaturation, this.rgba.toRgbString(), this.hueHeight)
                 this.renderAlpha(this.$refs.canvasAlpha, this.hueWidth, this.hueHeight, this.alphaSize, this.rgba.toRgbString())
