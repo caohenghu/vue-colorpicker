@@ -75,7 +75,7 @@ sucker-canvas | HTMLCanvasElement | `null` | like `document.createElement('canva
 sucker-area | Array | `[]` | like `[x1, y1, x2, y2]`
 
 
-> color is one-way data flow, so you can't use v-model. why? because you'll listen change event do more things, so i think it's not necessary here.
+> `color` is one-way data flow, so you can't use `v-model`. why? because you'll listen `changeColor` event do more things, so i think it's not necessary here.
 
 ## Events
 

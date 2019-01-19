@@ -12,6 +12,7 @@
                     <img ref="cover">
                 </div>
                 <color-picker
+                    :theme="theme"
                     :color="color"
                     :sucker-hide="false"
                     :sucker-canvas="suckerCanvas"
@@ -29,6 +30,12 @@
                 Fork me on GitHub
             </a>
         </div>
+        <div
+            class="switch"
+            :class="{'anim-pull': inAnimation}"
+            @animationend="animationEnd"
+            @click="changeTheme"
+        />
     </div>
 </template>
 
@@ -45,7 +52,9 @@ export default {
             color: '#59c7f9',
             suckerCanvas: null,
             suckerArea: [],
-            isSucking: false
+            isSucking: false,
+            theme: '',
+            inAnimation: false
         }
     },
     methods: {
@@ -94,6 +103,13 @@ export default {
             })
             return canvas
 
+        },
+        changeTheme() {
+            this.theme = this.theme ? '' : 'light'
+            this.inAnimation = true
+        },
+        animationEnd() {
+            this.inAnimation = false
         }
     }
 }
@@ -139,5 +155,39 @@ export default {
             color: #fff;
         }
     }
+    .switch {
+        position: fixed;
+        left: 20%;
+        top: -100px;
+        width: 2px;
+        height: 300px;
+        background: #ddd;
+        cursor: pointer;
+        &::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            bottom: -20px;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+    }
+}
+@keyframes line {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(100px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.anim-pull {
+    animation: line 0.6s;
 }
 </style>
