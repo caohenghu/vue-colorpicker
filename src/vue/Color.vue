@@ -1,6 +1,7 @@
 <template>
     <div
         class="hu-color-picker"
+        :class="{light: isLightTheme}"
         :style="{width: totalWidth + 'px'}"
     >
         <div class="color-set">
@@ -169,6 +170,10 @@ export default {
             type: String,
             default: '#000000'
         },
+        theme: {
+            type: String,
+            default: 'dark'
+        },
         suckerHide: {
             type: Boolean,
             default: true
@@ -220,6 +225,9 @@ export default {
         }
     },
     computed: {
+        isLightTheme() {
+            return this.theme === 'light'
+        },
         totalWidth() {
             return this.hueHeight + (this.hueWidth + 8) * 2
         },
@@ -261,7 +269,7 @@ export default {
         this.setColorPos()
         this.modelHex = this.rgba.toHexString()
         this.modelRgba = this.rgba.toRgbaStringShort()
-        this.imgAlphaBase64 = this.createAlphaSquare(this.alphaSize).toDataURL()
+        this.imgAlphaBase64 = this.createAlphaSquare(4).toDataURL()
     },
     mounted() {
         this.renderHue(this.$refs.canvasHue, this.hueWidth, this.hueHeight)
@@ -679,6 +687,26 @@ export default {
     border-radius: 4px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
     z-index: 1;
+    &.light {
+        background: #f7f8f9;
+        .color-show {
+            .sucker {
+                background: #eceef0;
+            }
+        }
+        .color-type {
+            .name {
+                background: #e7e8e9;
+            }
+            .value {
+                color: #666;
+                background: #eceef0;
+            }
+        }
+        .colors.history {
+            border-top: 1px solid #eee;
+        }
+    }
     canvas {
         vertical-align: top;
     }
@@ -782,7 +810,7 @@ export default {
         padding: 0;
         margin: 0;
         &.history {
-            margin-top: 8px;
+            margin-top: 10px;
             border-top: 1px solid #2e333a;
         }
         .item {
@@ -791,6 +819,7 @@ export default {
             height: 16px;
             margin: 10px 0 0 10px;
             border-radius: 3px;
+            box-sizing: border-box;
             vertical-align: top;
             display: inline-block;
             transition: all 0.1s;

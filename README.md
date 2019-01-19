@@ -2,7 +2,8 @@
 
 ## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
 
-![preview](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview.jpg)
+![preview-dark](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview-dark.jpg)
+![preview-light](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview-light.jpg)
 
 ## Install
 
@@ -16,6 +17,7 @@ $ yarn add @caohenghu/vue-colorpicker
 <template>
     <div :style="{background: color}">
         <color-picker
+            theme="light"
             :color="color"
             :sucker-hide="false"
             :sucker-canvas="suckerCanvas"
@@ -64,6 +66,7 @@ $ yarn add @caohenghu/vue-colorpicker
 
 name | type | default | desc
 ---|---|---|---
+theme | String | `dark` | `dark` or `light`
 color | String | `#000000` | `rgba` or `hex`
 colors-default | Array | `['#000000', '#FFFFFF', '#FF1900', '#F47365', '#FFB243', '#FFE623', '#6EFF2A', '#1BC7B1', '#00BEFF', '#2E81FF', '#5D61FF', '#FF89CF', '#FC3CAD', '#BF3DCE', '#8E00A7', 'rgba(0,0,0,0)']` | like `['#ff00ff', '#0f0f0f', ...]`
 colors-history-key | String | `vue-colorpicker-history` | 
@@ -81,4 +84,4 @@ name | type | emit args | desc
 changeColor | Function | color | `{ rgba: {}, hsv: {}}`
 openSucker | Function | isOpen | `true` or `false`
 
-> if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary.
+> if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary. when you click sucker button, you can click it again or press key of `esc` to exit.
