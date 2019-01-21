@@ -64,7 +64,7 @@ $ yarn add @caohenghu/vue-colorpicker
 
 ## Options
 
-name | type | default | desc
+Name | Type | Default | Description
 ---|---|---|---
 theme | String | `dark` | `dark` or `light`
 color | String | `#000000` | `rgba` or `hex`
@@ -79,7 +79,7 @@ sucker-area | Array | `[]` | like `[x1, y1, x2, y2]`
 
 ## Events
 
-name | type | emit args | desc
+Name | Type | Default | Description
 ---|---|---|---
 changeColor | Function | color | `{ rgba: {}, hsv: {}}`
 openSucker | Function | isOpen | `true` or `false`
