@@ -284,6 +284,7 @@ export default {
         keydownHandler(e) {
             if (e.keyCode === 27) { // esc
                 this.isOpenSucker = !this.isOpenSucker
+                this.isSucking = false
                 this.$emit('openSucker', this.isOpenSucker)
                 document.removeEventListener('keydown', this.keydownHandler)
                 document.removeEventListener('mousemove', this.mousemoveHandler)
