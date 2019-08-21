@@ -38,7 +38,7 @@ $ yarn add @caohenghu/vue-colorpicker
         methods: {
             changeColor(color) {
                 const { r, g, b, a } = color.rgba
-                this.color = `rgba(${(r, g, b, a)})`
+                this.color = `rgba(${r}, ${g}, ${b}, ${a})`
             },
             openSucker(isOpen) {
                 if (isOpen) {
