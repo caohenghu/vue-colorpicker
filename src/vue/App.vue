@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import colorPicker from './main'
+import colorPicker from './color/Index.vue'
 import imgCover from '../img/cover.jpg'
 
 export default {
@@ -59,17 +59,16 @@ export default {
     },
     methods: {
         changeColor(color) {
-            this.color = color.rgba.toRgbaString()
+            const { r, g, b, a } = color.rgba
+            this.color = `rgba(${r, g, b, a})`
         },
         openSucker(isOpen) {
             if (isOpen) {
                 this.isSucking = true
-                const image = new Image()
-                image.onload = () => {
+                setTimeout(() => {
                     const cover = this.$refs.cover
                     cover.setAttribute('crossorigin', 'Anonymous')
-                    cover.src = imgCover
-                    setTimeout(() => {
+                    cover.onload = () => {
                         const coverRect = cover.getBoundingClientRect()
                         const canvas = this.createCanvas(cover, coverRect)
                         document.body.appendChild(canvas)
@@ -80,9 +79,9 @@ export default {
                             coverRect.left + coverRect.width, 
                             coverRect.top + coverRect.height
                         ]
-                    }, 10)
-                }
-                image.src = imgCover
+                    }
+                    cover.src = imgCover
+                }, 10)
             } else {
                 this.suckerCanvas && this.suckerCanvas.remove()
                 this.isSucking = false

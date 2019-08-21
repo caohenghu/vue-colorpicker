@@ -2,10 +2,9 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const path = require('path')
 
-module.exports = (options) => {
+module.exports = options => {
     const env = require('./env/' + options.config + '.js')
     const plugin = require('./env/pro.js').plugin
     const port = env.port || 5555
@@ -36,7 +35,6 @@ module.exports = (options) => {
         })
     }
 
-
     const rules = [
         {
             test: /\.vue$/,
@@ -49,21 +47,19 @@ module.exports = (options) => {
         // },
         {
             test: /\.scss$/,
-            use: [
-                'vue-style-loader',
-                'css-loader',
-                'sass-loader'
-            ]
+            use: ['vue-style-loader', 'css-loader', 'sass-loader']
         },
         {
             test: /\.(png|jpg|gif|svg|ico)$/,
-            use: [{
-                loader: 'url-loader',
-                options: {
-                    name: 'images/[name]-[hash:8].[ext]',
-                    limit: 1000
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        name: 'images/[name]-[hash:8].[ext]',
+                        limit: 1000
+                    }
                 }
-            }]
+            ]
         }
     ]
 
@@ -72,28 +68,25 @@ module.exports = (options) => {
             root: __dirname // 需要指定根目录，才能删除项目外的文件夹
         }),
         new VueLoaderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
             minify,
-            libs: editorLibs,
-            alwaysWriteToDisk: true
-        }),
-        new HtmlWebpackHarddiskPlugin({
-            outputPath: path.resolve(__dirname, buildDir)
+            libs: editorLibs
         })
     ]
+
+    if (isLocal) {
+        plugins.push(new webpack.HotModuleReplacementPlugin())
+    }
 
     return {
         mode: isLocal ? 'development' : 'production',
         entry: {
-            app: [
-                './src'
-            ]
+            app: ['./src']
         },
         output: {
-            publicPath: '//' + env.host.cdn + (options.hot ? ':' + port : '') + '/vue-colorpicker/',
+            publicPath: options.hot ? '' : '//' + env.host.cdn + '/vue-colorpicker/',
             path: path.resolve(__dirname, buildDir),
             filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js',
             chunkFilename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js' // 本地开发如果使用hash，watch会影响到公用js
@@ -109,12 +102,11 @@ module.exports = (options) => {
             }
         },
         externals: {
-            'vue': 'Vue'
+            vue: 'Vue'
         },
         devtool: options.pro ? false : 'source-map',
         devServer: {
             hot: true,
-            host: env.host.cdn,
             port,
             headers: {
                 'Access-Control-Allow-Origin': '*'
