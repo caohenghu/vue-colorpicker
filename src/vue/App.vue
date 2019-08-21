@@ -2,7 +2,7 @@
     <div class="hu-page">
         <div
             class="bg"
-            :style="{background: color}"
+            :style="{ background: color }"
         >
             <div class="title">
                 vue-colorpicker
@@ -32,7 +32,7 @@
         </div>
         <div
             class="switch"
-            :class="{'anim-pull': inAnimation}"
+            :class="{ 'anim-pull': inAnimation }"
             @animationend="animationEnd"
             @click="changeTheme"
         />
@@ -76,7 +76,7 @@ export default {
                         this.suckerArea = [
                             coverRect.left,
                             coverRect.top,
-                            coverRect.left + coverRect.width, 
+                            coverRect.left + coverRect.width,
                             coverRect.top + coverRect.height
                         ]
                     }
@@ -92,7 +92,7 @@ export default {
             const ctx = canvas.getContext('2d')
             canvas.width = coverRect.width
             canvas.height = coverRect.height
-            
+
             ctx.drawImage(cover, 0, 0, coverRect.width, coverRect.height)
             Object.assign(canvas.style, {
                 position: 'absolute',
@@ -101,7 +101,6 @@ export default {
                 opacity: 0
             })
             return canvas
-
         },
         changeTheme() {
             this.theme = this.theme ? '' : 'light'

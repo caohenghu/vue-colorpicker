@@ -1,8 +1,8 @@
 <template>
     <div
         class="hu-color-picker"
-        :class="{light: isLightTheme}"
-        :style="{width: totalWidth + 'px'}"
+        :class="{ light: isLightTheme }"
+        :style="{ width: totalWidth + 'px' }"
     >
         <div class="color-set">
             <Saturation
@@ -29,7 +29,7 @@
             />
         </div>
         <div
-            :style="{height: previewHeight + 'px'}"
+            :style="{ height: previewHeight + 'px' }"
             class="color-show"
         >
             <Preview

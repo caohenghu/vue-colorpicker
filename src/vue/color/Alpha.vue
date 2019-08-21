@@ -4,7 +4,7 @@
         class="color-alpha"
         @mousedown.prevent.stop="selectAlpha"
     >
-        <canvas ref="canvasAlpha"/>
+        <canvas ref="canvasAlpha" />
         <div
             :style="slideAlphaStyle"
             class="slide"

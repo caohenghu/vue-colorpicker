@@ -8,11 +8,11 @@
                 @click="selectColor(item)"
             >
                 <div
-                    :style="{background: `url(${imgAlphaBase64})`}"
+                    :style="{ background: `url(${imgAlphaBase64})` }"
                     class="alpha"
                 />
                 <div
-                    :style="{background: item}"
+                    :style="{ background: item }"
                     class="color"
                 />
             </li>
@@ -28,11 +28,11 @@
                 @click="selectColor(item)"
             >
                 <div
-                    :style="{background: `url(${imgAlphaBase64})`}"
+                    :style="{ background: `url(${imgAlphaBase64})` }"
                     class="alpha"
                 />
                 <div
-                    :style="{background: item}"
+                    :style="{ background: item }"
                     class="color"
                 />
             </li>

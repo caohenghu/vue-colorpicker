@@ -4,7 +4,7 @@
         class="saturation"
         @mousedown.prevent.stop="selectSaturation"
     >
-        <canvas ref="canvasSaturation"/>
+        <canvas ref="canvasSaturation" />
         <div
             :style="slideSaturationStyle"
             class="slide"
@@ -94,7 +94,7 @@ export default {
                 // 如果用最大值，选择的像素会是空的，空的默认是黑色
                 const imgData = ctx.getImageData(Math.min(x, this.size - 1), Math.min(y, this.size - 1), 1, 1)
                 const [r, g, b] = imgData.data
-                this.$emit('selectSaturation', {r, g, b})
+                this.$emit('selectSaturation', { r, g, b })
             }
 
             mousemove(e)

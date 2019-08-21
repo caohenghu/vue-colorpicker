@@ -16,7 +16,15 @@ $ yarn add @caohenghu/vue-colorpicker
 ```html
 <template>
     <div :style="{background: color}">
-        <color-picker theme="light" :color="color" :sucker-hide="false" :sucker-canvas="suckerCanvas" :sucker-area="suckerArea" @changeColor="changeColor" @openSucker="openSucker" />
+        <color-picker
+            theme="light"
+            :color="color"
+            :sucker-hide="false"
+            :sucker-canvas="suckerCanvas"
+            :sucker-area="suckerArea"
+            @changeColor="changeColor"
+            @openSucker="openSucker"
+        />
     </div>
 </template>
 

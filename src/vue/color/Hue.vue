@@ -4,7 +4,7 @@
         class="hue"
         @mousedown.prevent.stop="selectHue"
     >
-        <canvas ref="canvasHue"/>
+        <canvas ref="canvasHue" />
         <div
             :style="slideHueStyle"
             class="slide"
@@ -88,7 +88,7 @@ export default {
                 // 如果用最大值，选择的像素会是空的，空的默认是黑色
                 const imgData = ctx.getImageData(0, Math.min(y, this.height - 1), 1, 1)
                 const [r, g, b] = imgData.data
-                this.$emit('selectHue', {r,g,b})
+                this.$emit('selectHue', { r, g, b })
             }
 
             mousemove(e)

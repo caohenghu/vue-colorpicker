@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="canvasColor"/>
+    <canvas ref="canvasColor" />
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
 
             ctx.fillStyle = this.color
             ctx.fillRect(0, 0, width, height)
-        },
+        }
     }
 }
 </script>
