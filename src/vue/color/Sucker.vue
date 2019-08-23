@@ -48,10 +48,8 @@
 </template>
 
 <script>
-import mixin from './mixin'
 import imgSucker from '../../img/sucker.png'
 export default {
-    mixins: [mixin],
     props: {
         suckerCanvas: {
             type: null, // HTMLCanvasElement
@@ -65,7 +63,7 @@ export default {
     data() {
         return {
             isOpenSucker: false, // 是否处于吸管状态
-            suckerPreview: null, // 吸管旁边的预览颜色
+            suckerPreview: null, // 吸管旁边的预览颜色dom
             isSucking: false // 是否处于吸管等待状态
         }
     },
@@ -78,20 +76,22 @@ export default {
     },
     methods: {
         openSucker() {
-            // 和上面的代码一样，所以直接调用同一个方法
-            this.keydownHandler({ keyCode: 27 })
-
-            if (this.isOpenSucker) {
+            if (!this.isOpenSucker) {
+                this.isOpenSucker = true
                 this.isSucking = true
+                this.$emit('openSucker', true)
                 document.addEventListener('keydown', this.keydownHandler)
+            } else {
+                // 和按下esc键的处理逻辑一样
+                this.keydownHandler({ keyCode: 27 })
             }
         },
         keydownHandler(e) {
             // esc
             if (e.keyCode === 27) {
-                this.isOpenSucker = !this.isOpenSucker
+                this.isOpenSucker = false
                 this.isSucking = false
-                this.$emit('openSucker', this.isOpenSucker)
+                this.$emit('openSucker', false)
                 document.removeEventListener('keydown', this.keydownHandler)
                 document.removeEventListener('mousemove', this.mousemoveHandler)
                 document.removeEventListener('mouseup', this.mousemoveHandler)
@@ -120,7 +120,7 @@ export default {
                 borderRadius: '50%',
                 border: '2px solid #fff',
                 boxShadow: '0 0 8px 0 rgba(0, 0, 0, 0.16)',
-                background: `rgba(${[r, g, b, a].join(',')})`,
+                background: `rgba(${r}, ${g}, ${b}, ${a})`,
                 zIndex: 95 // 吸管的小圆圈预览色的层级不能超过颜色选择器
             })
             if (

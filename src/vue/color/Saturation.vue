@@ -1,6 +1,5 @@
 <template>
     <div
-        ref="saturation"
         class="saturation"
         @mousedown.prevent.stop="selectSaturation"
     >
@@ -66,7 +65,7 @@ export default {
             }
         },
         selectSaturation(e) {
-            const { top: saturationTop, left: saturationLeft } = this.$refs.saturation.getBoundingClientRect()
+            const { top: saturationTop, left: saturationLeft } = this.$el.getBoundingClientRect()
             const ctx = e.target.getContext('2d')
 
             const mousemove = e => {

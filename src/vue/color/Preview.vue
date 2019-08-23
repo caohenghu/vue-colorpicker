@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="canvasColor" />
+    <canvas />
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         renderColor() {
-            const canvas = this.$refs.canvasColor
+            const canvas = this.$el
             const width = this.width
             const height = this.height
             const size = this.alphaSize

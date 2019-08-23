@@ -1,6 +1,5 @@
 <template>
     <div
-        ref="hue"
         class="hue"
         @mousedown.prevent.stop="selectHue"
     >
@@ -69,7 +68,7 @@ export default {
             }
         },
         selectHue(e) {
-            const { top: hueTop } = this.$refs.hue.getBoundingClientRect()
+            const { top: hueTop } = this.$el.getBoundingClientRect()
             const ctx = e.target.getContext('2d')
 
             const mousemove = e => {

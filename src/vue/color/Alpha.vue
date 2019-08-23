@@ -1,6 +1,5 @@
 <template>
     <div
-        ref="alpha"
         class="color-alpha"
         @mousedown.prevent.stop="selectAlpha"
     >
@@ -75,7 +74,7 @@ export default {
             }
         },
         selectAlpha(e) {
-            const { top: hueTop } = this.$refs.alpha.getBoundingClientRect()
+            const { top: hueTop } = this.$el.getBoundingClientRect()
 
             const mousemove = e => {
                 let y = e.clientY - hueTop

@@ -159,10 +159,10 @@ export default {
             }
         },
         rgbString() {
-            return `rgb(${[this.r, this.g, this.b].join(',')})`
+            return `rgb(${this.r}, ${this.g}, ${this.b})`
         },
         rgbaStringShort() {
-            return `${[this.r, this.g, this.b, this.a].join(',')}`
+            return `${this.r}, ${this.g}, ${this.b}, ${this.a}`
         },
         rgbaString() {
             return `rgba(${this.rgbaStringShort})`
@@ -185,15 +185,13 @@ export default {
     },
     methods: {
         selectSaturation(color) {
-            const value = this.setColorValue(color)
-            delete value.a
-            Object.assign(this, value)
+            const { r, g, b, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, h, s, v })
             this.setText()
         },
         selectHue(color) {
-            const value = this.setColorValue(color)
-            delete value.a
-            Object.assign(this, value)
+            const { r, g, b, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, h, s, v })
             this.setText()
             this.$nextTick(() => {
                 this.$refs.saturation.renderColor()
@@ -205,8 +203,8 @@ export default {
             this.setText()
         },
         inputHex(color) {
-            Object.assign(this, this.setColorValue(color))
-            this.modelRgba = this.rgbaStringShort
+            const { r, g, b, a, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, a, h, s, v, modelRgba: this.rgbaStringShort })
             this.$nextTick(() => {
                 this.$refs.saturation.renderColor()
                 this.$refs.saturation.renderSlide()
@@ -214,16 +212,8 @@ export default {
             })
         },
         inputRgba(color) {
-            Object.assign(this, this.setColorValue(color))
-            this.modelHex = this.hexString
-            this.$nextTick(() => {
-                this.$refs.saturation.renderColor()
-                this.$refs.saturation.renderSlide()
-                this.$refs.hue.renderSlide()
-            })
-        },
-        inputColor(color) {
-            Object.assign(this, this.setColorValue(color))
+            const { r, g, b, a, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, a, h, s, v, modelHex: this.hexString })
             this.$nextTick(() => {
                 this.$refs.saturation.renderColor()
                 this.$refs.saturation.renderSlide()
@@ -238,8 +228,8 @@ export default {
             this.$emit('openSucker', isOpen)
         },
         selectSucker(color) {
-            const value = this.setColorValue(color)
-            Object.assign(this, value)
+            const { r, g, b, a, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, a, h, s, v })
             this.setText()
             this.$nextTick(() => {
                 this.$refs.saturation.renderColor()
@@ -248,8 +238,8 @@ export default {
             })
         },
         selectColor(color) {
-            const value = this.setColorValue(color)
-            Object.assign(this, value)
+            const { r, g, b, a, h, s, v } = this.setColorValue(color)
+            Object.assign(this, { r, g, b, a, h, s, v })
             this.setText()
             this.$nextTick(() => {
                 this.$refs.saturation.renderColor()
