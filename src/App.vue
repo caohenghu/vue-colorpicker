@@ -42,7 +42,7 @@
 
 <script>
 import colorPicker from './color/Index.vue'
-import imgCover from '../img/cover.jpg'
+import imgCover from './img/cover.jpg'
 
 export default {
     components: {

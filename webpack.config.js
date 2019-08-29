@@ -53,7 +53,7 @@ module.exports = options => {
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './src/index.ejs',
             filename: 'index.html',
             minify,
             libs

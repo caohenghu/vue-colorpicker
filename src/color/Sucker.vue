@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import imgSucker from '../../img/sucker.png'
+import imgSucker from '../img/sucker.png'
 export default {
     props: {
         suckerCanvas: {
