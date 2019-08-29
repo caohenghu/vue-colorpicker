@@ -8,9 +8,6 @@
                 vue-colorpicker
             </div>
             <div class="cover">
-                <div v-if="isSucking">
-                    <img ref="cover">
-                </div>
                 <color-picker
                     :theme="theme"
                     :color="color"
@@ -20,6 +17,10 @@
                     @changeColor="changeColor"
                     @openSucker="openSucker"
                 />
+                <img
+                    v-if="isOpenSucker"
+                    ref="cover"
+                >
             </div>
         </div>
         <div class="github">
@@ -52,7 +53,7 @@ export default {
             color: '#59c7f9',
             suckerCanvas: null,
             suckerArea: [],
-            isSucking: false,
+            isOpenSucker: false,
             theme: '',
             inAnimation: false
         }
@@ -63,12 +64,15 @@ export default {
             this.color = `rgba(${r}, ${g}, ${b}, ${a})`
         },
         openSucker(isOpen) {
+            this.isOpenSucker = isOpen
             if (isOpen) {
-                this.isSucking = true
                 setTimeout(() => {
                     const cover = this.$refs.cover
-                    cover.setAttribute('crossorigin', 'Anonymous')
                     cover.onload = () => {
+                    // 如果已经点击取消了才加载完，则不执行
+                        if (!this.isOpenSucker) {
+                            return
+                        }
                         const coverRect = cover.getBoundingClientRect()
                         const canvas = this.createCanvas(cover, coverRect)
                         document.body.appendChild(canvas)
@@ -80,11 +84,11 @@ export default {
                             coverRect.top + coverRect.height
                         ]
                     }
+                    cover.setAttribute('crossorigin', 'Anonymous')
                     cover.src = imgCover
                 }, 10)
             } else {
                 this.suckerCanvas && this.suckerCanvas.remove()
-                this.isSucking = false
             }
         },
         createCanvas(cover, coverRect) {
@@ -131,6 +135,7 @@ export default {
         .cover {
             display: flex;
             justify-content: space-around;
+            align-items: center;
             width: 100%;
         }
     }
