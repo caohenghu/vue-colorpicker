@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>vue-colorpicker</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>vue-colorpicker</title>
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
+            body {
+                margin: 0;
+            }
+        </style>
+    </head>
 
-        body {
-            margin: 0;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="app"></div>
-    <% for (lib of htmlWebpackPlugin.options.libs) { %>
-    <% if (lib.isAsync) { %>
-    <script src="<%= lib.url %>" async></script>
-    <% } else { %>
-    <script src="<%= lib.url %>"></script>
-    <% } %>
-    <% } %>
-    <script src="//tajs.qq.com/stats?sId=66164915" async></script>
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?58605b1010e0ba767ec902fdec191cd7";
-            hm.async = true
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-</body>
-
+    <body>
+        <div id="app"></div>
+        <% for (lib of htmlWebpackPlugin.options.libs) { %> <% if (lib.isAsync)
+        { %>
+        <script src="<%= lib.url %>" async></script>
+        <% } else { %>
+        <script src="<%= lib.url %>"></script>
+        <% } %> <% } %>
+        <script src="https://tajs.qq.com/stats?sId=66164915" async></script>
+        <script>
+            var _hmt = _hmt || []
+            ;(function() {
+                var hm = document.createElement('script')
+                hm.src =
+                    'https://hm.baidu.com/hm.js?58605b1010e0ba767ec902fdec191cd7'
+                hm.async = true
+                var s = document.getElementsByTagName('script')[0]
+                s.parentNode.insertBefore(hm, s)
+            })()
+        </script>
+    </body>
 </html>
