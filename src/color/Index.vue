@@ -175,7 +175,8 @@ export default {
         rgba() {
             this.$emit('changeColor', {
                 rgba: this.rgba,
-                hsv: this.hsv
+                hsv: this.hsv,
+                hex: this.modelHex
             })
         }
     },
