@@ -25,7 +25,7 @@
         </div>
         <div class="github">
             <a
-                href="https://github.com/caohenghu/vue-colorpicker"
+                href="https://github.com/cs09g/vue-colorpicker"
                 target="_blank"
             >
                 Fork me on GitHub

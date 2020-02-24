@@ -1,14 +1,14 @@
 # vue-colorpicker
 
-## [LiveDemo](https://caohenghu.github.io/vue-colorpicker/)
+## [LiveDemo](https://cs09g.github.io/vue-colorpicker/)
 
-![preview-dark](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview-dark.jpg)
-![preview-light](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/preview-light.jpg)
+![preview-dark](https://raw.githubusercontent.com/cs09g/vue-colorpicker/master/src/img/preview-dark.jpg)
+![preview-light](https://raw.githubusercontent.com/cs09g/vue-colorpicker/master/src/img/preview-light.jpg)
 
 ## Install
 
 ```bash
-$ yarn add @caohenghu/vue-colorpicker
+$ yarn add @cs09g/vue-colorpicker
 ```
 
 ## Example
@@ -29,7 +29,7 @@ $ yarn add @caohenghu/vue-colorpicker
 </template>
 
 <script>
-    import colorPicker from '@caohenghu/vue-colorpicker'
+    import colorPicker from '@cs09g/vue-colorpicker'
 
     export default {
         components: {

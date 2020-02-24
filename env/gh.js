@@ -1,5 +1,5 @@
 module.exports = {
     host: {
-        cdn: 'caohenghu.github.io'
+        cdn: 'cs09g.github.io'
     }
 }
