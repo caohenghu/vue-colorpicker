@@ -78,9 +78,9 @@ $ yarn add @caohenghu/vue-colorpicker
 
 ## Events
 
-| Name        | Type     | Args   | Description            |
-| ----------- | -------- | ------ | ---------------------- |
-| changeColor | Function | color  | `{ rgba: {}, hsv: {}, hex: String}` |
-| openSucker  | Function | isOpen | `true` or `false`      |
+| Name        | Type     | Args   | Description                     |
+| ----------- | -------- | ------ | ------------------------------- |
+| changeColor | Function | color  | `{ rgba: {}, hsv: {}, hex: ''}` |
+| openSucker  | Function | isOpen | `true` or `false`               |
 
 > if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary. when you click sucker button, you can click it again or press key of `esc` to exit.
