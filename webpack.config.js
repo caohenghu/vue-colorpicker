@@ -1,7 +1,8 @@
 const webpack = require('webpack')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 const minify = {
@@ -15,42 +16,45 @@ const minify = {
     removeStyleLinkTypeAttributes: true // 删除style上的type
 }
 
-const rules = [
-    {
-        test: /\.vue$/,
-        use: 'vue-loader'
-    },
-    // {
-    //     test: /\.js$/,
-    //     exclude: /node_modules/,
-    //     use: 'babel-loader'
-    // },
-    {
-        test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
-    },
-    {
-        test: /\.(png|jpg|gif|svg|ico)$/,
-        use: [
-            {
-                loader: 'url-loader',
-                options: {
-                    name: 'images/[name]-[hash:8].[ext]',
-                    limit: 1000
-                }
-            }
-        ]
-    }
-]
-
 module.exports = options => {
     const env = require('./env/' + options.config + '.js')
     const plugin = require('./env/pro.js').plugin
     const port = env.port || 5555
     const isLocal = options.local
     const libs = []
+
+    const rules = [
+        {
+            test: /\.vue$/,
+            use: 'vue-loader'
+        },
+        // {
+        //     test: /\.js$/,
+        //     use: 'babel-loader'
+        // },
+        {
+            test: /\.scss$/,
+            use: [
+                isLocal ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+                'css-loader',
+                'postcss-loader',
+                'sass-loader'
+            ]
+        },
+        {
+            test: /\.(png|jpg|gif|svg|ico)$/,
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        name: 'images/[name]-[hash:8].[ext]',
+                        limit: 1000
+                    }
+                }
+            ]
+        }
+    ]
     const plugins = [
-        new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             template: './demo/index.ejs',
@@ -62,13 +66,19 @@ module.exports = options => {
 
     if (isLocal) {
         plugins.push(new webpack.HotModuleReplacementPlugin())
+    } else {
+        plugins.push(
+            new OptimizeCssAssetsPlugin(),
+            new MiniCssExtractPlugin({
+                filename: 'css/[name]-[hash:8].min.css'
+            })
+        )
     }
 
     // 如果是本地开发，使用未压缩的插件
     if (isLocal) {
         plugin.forEach((item, i) => {
-            plugin[i] = item
-                .replace('.min', '')
+            plugin[i] = item.replace('.min', '')
         })
     }
     plugin.forEach(item => {
@@ -84,9 +94,11 @@ module.exports = options => {
             app: './demo'
         },
         output: {
-            publicPath: isLocal ? '' : '//' + env.host.cdn + '/vue-colorpicker/',
+            publicPath: isLocal
+                ? ''
+                : '//' + env.host.cdn + '/vue-colorpicker/',
             path: path.resolve('dist'),
-            filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js',
+            filename: isLocal ? 'js/[name].js' : 'js/[name]-[hash:8].js'
         },
         module: {
             rules
