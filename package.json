@@ -1,8 +1,8 @@
 {
     "name": "@caohenghu/vue-colorpicker",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "Colorpicker of Vue Components",
-    "main": "src/main.js",
+    "main": "src/index.js",
     "scripts": {
         "hot": "webpack-dev-server --env.config local --env.local",
         "pro": "webpack --env.config pro --env.pro",
@@ -19,6 +19,9 @@
     },
     "author": "caohenghu <caohenghu@gmail.com>",
     "license": "MIT",
+    "files": [
+        "src"
+    ],
     "devDependencies": {
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^3.2.0",

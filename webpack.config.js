@@ -53,7 +53,7 @@ module.exports = options => {
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.ejs',
+            template: './demo/index.ejs',
             filename: 'index.html',
             minify,
             libs
@@ -81,7 +81,7 @@ module.exports = options => {
     return {
         mode: isLocal ? 'development' : 'production',
         entry: {
-            app: './src'
+            app: './demo'
         },
         output: {
             publicPath: isLocal ? '' : '//' + env.host.cdn + '/vue-colorpicker/',

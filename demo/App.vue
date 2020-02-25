@@ -1,9 +1,6 @@
 <template>
     <div class="hu-page">
-        <div
-            class="bg"
-            :style="{ background: color }"
-        >
+        <div class="bg" :style="{ background: color }">
             <div class="title">
                 vue-colorpicker
             </div>
@@ -17,10 +14,7 @@
                     @changeColor="changeColor"
                     @openSucker="openSucker"
                 />
-                <img
-                    v-if="isOpenSucker"
-                    ref="cover"
-                >
+                <img v-if="isOpenSucker" ref="cover" />
             </div>
         </div>
         <div class="github">
@@ -41,8 +35,8 @@
 </template>
 
 <script>
-import colorPicker from './color/Index.vue'
-import imgCover from './img/cover.jpg'
+import colorPicker from '../src'
+import imgCover from './cover.jpg'
 
 export default {
     components: {
@@ -69,7 +63,7 @@ export default {
                 setTimeout(() => {
                     const cover = this.$refs.cover
                     cover.onload = () => {
-                    // 如果已经点击取消了才加载完，则不执行
+                        // 如果已经点击取消了才加载完，则不执行
                         if (!this.isOpenSucker) {
                             return
                         }
