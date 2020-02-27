@@ -171,18 +171,18 @@ export default {
             return this.rgb2hex(this.rgba, true)
         }
     },
-    watch: {
-        rgba() {
+    created() {
+        Object.assign(this, this.setColorValue(this.color))
+        this.setText()
+
+        // 避免初始化时，也会触发changeColor事件
+        this.$watch('rgba', () => {
             this.$emit('changeColor', {
                 rgba: this.rgba,
                 hsv: this.hsv,
                 hex: this.modelHex
             })
-        }
-    },
-    created() {
-        Object.assign(this, this.setColorValue(this.color))
-        this.setText()
+        })
     },
     methods: {
         selectSaturation(color) {
