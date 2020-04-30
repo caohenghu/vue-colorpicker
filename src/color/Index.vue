@@ -56,6 +56,7 @@
             @inputColor="inputRgba"
         />
         <Colors
+            v-if="colorHistoryHide"
             :color="rgbaString"
             :colors-default="colorsDefault"
             :colors-history-key="colorsHistoryKey"
@@ -94,6 +95,10 @@ export default {
             default: 'dark'
         },
         suckerHide: {
+            type: Boolean,
+            default: true
+        },
+        colorHistoryHide: {
             type: Boolean,
             default: true
         },
