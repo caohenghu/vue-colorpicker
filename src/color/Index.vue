@@ -46,17 +46,19 @@
             />
         </div>
         <Box
+            v-if="!hexHide"
             name="HEX"
             :color="modelHex"
             @inputColor="inputHex"
         />
         <Box
+            v-if="!rgbaHide"
             name="RGBA"
             :color="modelRgba"
             @inputColor="inputRgba"
         />
         <Colors
-            v-if="colorHistoryHide"
+            v-if="!colorHistoryHide"
             :color="rgbaString"
             :colors-default="colorsDefault"
             :colors-history-key="colorsHistoryKey"
@@ -98,9 +100,17 @@ export default {
             type: Boolean,
             default: true
         },
+        hexHide: {
+            type: Boolean,
+            default: false
+        },
+        rgbaHide: {
+            type: Boolean,
+            default: false
+        },
         colorHistoryHide: {
             type: Boolean,
-            default: true
+            default: false
         },
         suckerCanvas: {
             type: null, // HTMLCanvasElement
