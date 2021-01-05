@@ -6,6 +6,7 @@
         <input
             v-model="modelColor"
             class="value"
+            @keyup="emitColorChange"
             @blur="emitColorChange"
         >
     </div>
@@ -35,7 +36,10 @@ export default {
     methods: {
         // Emits colour change on blur
         emitColorChange () {
-            this.$emit('inputColor', this.modelColor)
+            // If valid HEX color, emit color
+            if (/^#[0-9A-F]{6}$/i.test(this.modelColor)) {
+                this.$emit('inputColor', this.modelColor);
+            }
         }
     },
     watch: {
