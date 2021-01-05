@@ -137,6 +137,7 @@ export default {
             hueWidth: 15,
             hueHeight: 152,
             previewHeight: 30,
+            changeType: 'saturation',
             modelRgba: '',
             modelHex: '',
             r: 0,
@@ -195,17 +196,22 @@ export default {
             this.$emit('changeColor', {
                 rgba: this.rgba,
                 hsv: this.hsv,
-                hex: this.modelHex
+                hex: this.modelHex,
+                changeType: this.changeType
             })
         })
     },
     methods: {
         selectSaturation(color) {
+            this.changeType = 'saturation';
+
             const { r, g, b, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, h, s, v })
             this.setText()
         },
         selectHue(color) {
+            this.changeType = 'hue';
+
             const { r, g, b, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, h, s, v })
             this.setText()
@@ -215,10 +221,14 @@ export default {
             })
         },
         selectAlpha(a) {
+            this.changeType = 'alpha';
+
             this.a = a
             this.setText()
         },
         inputHex(color) {
+            this.changeType = 'hex';
+
             const { r, g, b, a, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, a, h, s, v })
             this.modelHex = color
@@ -230,6 +240,8 @@ export default {
             })
         },
         inputRgba(color) {
+            this.changeType = 'rgba';
+
             const { r, g, b, a, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, a, h, s, v })
             this.modelHex = this.hexString
@@ -248,6 +260,8 @@ export default {
             this.$emit('openSucker', isOpen)
         },
         selectSucker(color) {
+            this.changeType = 'sucker';
+
             const { r, g, b, a, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, a, h, s, v })
             this.setText()
@@ -258,6 +272,8 @@ export default {
             })
         },
         selectColor(color) {
+            this.changeType = 'colorHistory';
+
             const { r, g, b, a, h, s, v } = this.setColorValue(color)
             Object.assign(this, { r, g, b, a, h, s, v })
             this.setText()
