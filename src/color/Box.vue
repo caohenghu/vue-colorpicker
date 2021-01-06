@@ -6,12 +6,23 @@
         <input
             v-model="modelColor"
             class="value"
+            @keyup="emitColorChange"
+            @blur="emitColorChange"
         >
     </div>
 </template>
 
 <script>
 export default {
+    created () {
+        // Sets default colour if exists from prop
+        if (this.color) this.modelColor = this.color;
+    },
+    data () {
+        return {
+            modelColor: ''
+        }
+    },
     props: {
         name: {
             type: String,
@@ -22,14 +33,19 @@ export default {
             default: ''
         }
     },
-    computed: {
-        modelColor: {
-            get() {
-                return this.color
-            },
-            set(val) {
-                this.$emit('inputColor', val)
+    methods: {
+        // Emits colour change on blur
+        emitColorChange () {
+            // If valid HEX color, emit color
+            if (/^#[0-9A-F]{6}$/i.test(this.modelColor)) {
+                this.$emit('inputColor', this.modelColor);
             }
+        }
+    },
+    watch: {
+        // Watches for any change in the color prop, updates this.modelColor
+        color (newVal, oldVal) {
+            this.modelColor = newVal;
         }
     }
 }

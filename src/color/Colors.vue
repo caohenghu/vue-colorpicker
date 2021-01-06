@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div @mousedown.prevent.stop>
         <ul class="colors">
             <li
                 v-for="item in colorsDefault"
