@@ -5,16 +5,18 @@
         @touchstart.prevent.stop="selectSaturationTouch"
     >
         <canvas ref="canvasSaturation" />
-        <div
-            :style="slideSaturationStyle"
-            class="slide"
-        />
+        <Slide :style="slideSaturationStyle" />
     </div>
 </template>
 
 <script>
 import mixin from './mixin'
+import Slide from './Slide.vue'
+
 export default {
+    components: {
+        Slide
+    },
     mixins: [mixin],
     props: {
         color: {
@@ -61,8 +63,9 @@ export default {
         },
         renderSlide() {
             this.slideSaturationStyle = {
-                left: this.hsv.s * this.size - 5 + 'px',
-                top: (1 - this.hsv.v) * this.size - 5 + 'px'
+                left: this.hsv.s * this.size - 7 + 'px',
+                top: (1 - this.hsv.v) * this.size - 2 + 'px',
+                background: this.color
             }
         },
         changeStart (e) {
@@ -95,8 +98,9 @@ export default {
 
             // 不通过监听数据变化来修改dom，否则当颜色为#ffffff时，slide会跑到左下角
             this.slideSaturationStyle = {
-                left: x - 5 + 'px',
-                top: y - 5 + 'px'
+                left: x - 7 + 'px',
+                top: y - 2 + 'px',
+                background: this.color
             }
             // 如果用最大值，选择的像素会是空的，空的默认是黑色
             const imgData = this.ctx.getImageData(Math.min(x, this.size - 1), Math.min(y, this.size - 1), 1, 1)
@@ -142,16 +146,5 @@ export default {
 .saturation {
     position: relative;
     cursor: pointer;
-    .slide {
-        position: absolute;
-        left: 100px;
-        top: 0;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        border: 1px solid #fff;
-        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
-        pointer-events: none;
-    }
 }
 </style>

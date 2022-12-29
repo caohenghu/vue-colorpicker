@@ -5,15 +5,16 @@
         @touchstart.prevent.stop="selectHueTouch"
     >
         <canvas ref="canvasHue" />
-        <div
-            :style="slideHueStyle"
-            class="slide"
-        />
+        <Slide :style="slideHueStyle" />
     </div>
 </template>
 
 <script>
+import Slide from './Slide.vue'
 export default {
+    components: {
+        Slide
+    },
     props: {
         hsv: {
             type: Object,
@@ -26,7 +27,11 @@ export default {
         height: {
             type: Number,
             default: 152
-        }
+        },
+        color: {
+            type: String,
+            default: '#000000'
+        },
     },
     data() {
         return {
@@ -65,7 +70,8 @@ export default {
         },
         renderSlide() {
             this.slideHueStyle = {
-                top: (1 - this.hsv.h / 360) * this.height - 2 + 'px'
+                top: (1 - this.hsv.h / 360) * this.height - 2 + 'px',
+                background: this.color
             }
         },
         changeStart (e) {
@@ -77,7 +83,6 @@ export default {
             if (!this.hueTop || !this.ctx) return
 
             const clientY = e.clientY || e.touches[0].clientY
-
             let y = clientY - this.hueTop
 
             if (y < 0) {
@@ -88,11 +93,14 @@ export default {
             }
 
             this.slideHueStyle = {
-                top: y - 2 + 'px'
+                top: y - 2 + 'px',
+                background: this.color
             }
+
             // 如果用最大值，选择的像素会是空的，空的默认是黑色
             const imgData = this.ctx.getImageData(0, Math.min(y, this.height - 1), 1, 1)
             const [r, g, b] = imgData.data
+
             this.$emit('selectHue', { r, g, b })
         },
         changeEnd () {
@@ -132,17 +140,7 @@ export default {
 <style lang="scss">
   .hue {
     position: relative;
-    margin-left: 8px;
+    margin-left: 12px;
     cursor: pointer;
-    .slide {
-      position: absolute;
-      left: 0;
-      top: 100px;
-      width: 100%;
-      height: 4px;
-      background: #fff;
-      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
-      pointer-events: none;
-    }
   }
 </style>

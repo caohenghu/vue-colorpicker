@@ -5,16 +5,18 @@
         @touchstart.prevent.stop="selectAlphaTouch"
     >
         <canvas ref="canvasAlpha" />
-        <div
-            :style="slideAlphaStyle"
-            class="slide"
-        />
+        <Slide :style="slideAlphaStyle" />
     </div>
 </template>
 
 <script>
 import mixin from './mixin'
+import Slide from './Slide.vue'
+
 export default {
+    components: {
+        Slide
+    },
     mixins: [mixin],
     props: {
         color: {
@@ -44,7 +46,7 @@ export default {
         color() {
             this.renderColor()
         },
-        'rgba.a'() {
+        'rgba'() {
             this.renderSlide()
         }
     },
@@ -91,8 +93,10 @@ export default {
             delete this.hueTop
         },
         renderSlide() {
+            const { r, g, b, a } = this.rgba
             this.slideAlphaStyle = {
-                top: this.rgba.a * this.height - 2 + 'px'
+                top: a * this.height - 2 + 'px',
+                background: `rgba(${r}, ${g}, ${b}, ${a})`
             }
         },
         selectAlpha(e) {
@@ -110,7 +114,6 @@ export default {
         },
         selectAlphaTouch(e) {
             this.changeStart(e)
-
             this.change(e)
 
             const touchend = () => {
@@ -129,17 +132,7 @@ export default {
 <style lang="scss">
 .color-alpha {
     position: relative;
-    margin-left: 8px;
+    margin-left: 12px;
     cursor: pointer;
-    .slide {
-        position: absolute;
-        left: 0;
-        top: 100px;
-        width: 100%;
-        height: 4px;
-        background: #fff;
-        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
-        pointer-events: none;
-    }
 }
 </style>

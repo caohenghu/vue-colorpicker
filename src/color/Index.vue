@@ -15,6 +15,7 @@
             <Hue
                 ref="hue"
                 :hsv="hsv"
+                :color="modelHex"
                 :width="hueWidth"
                 :height="hueHeight"
                 @selectHue="selectHue"
@@ -138,7 +139,7 @@ export default {
             return this.theme === 'light'
         },
         totalWidth() {
-            return this.hueHeight + (this.hueWidth + 8) * 2
+            return this.hueHeight + (this.hueWidth + 12) * 2
         },
         previewWidth() {
             return this.totalWidth - (this.suckerHide ? 0 : this.previewHeight)
