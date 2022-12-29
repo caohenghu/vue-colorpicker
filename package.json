@@ -1,6 +1,6 @@
 {
     "name": "@caohenghu/vue-colorpicker",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "Colorpicker of Vue Components",
     "main": "src/index.js",
     "scripts": {
