@@ -2,6 +2,7 @@
     <div
         class="hue"
         @mousedown.prevent.stop="selectHue"
+        @touchstart.prevent.stop="selectHueTouch"
     >
         <canvas ref="canvasHue" />
         <div
@@ -67,57 +68,81 @@ export default {
                 top: (1 - this.hsv.h / 360) * this.height - 2 + 'px'
             }
         },
-        selectHue(e) {
-            const { top: hueTop } = this.$el.getBoundingClientRect()
-            const ctx = e.target.getContext('2d')
+        changeStart (e) {
+            const { top } = this.$el.getBoundingClientRect()
+            this.hueTop = top
+            this.ctx = e.target.getContext('2d')
+        },
+        change (e) {
+            if (!this.hueTop || !this.ctx) return
 
-            const mousemove = e => {
-                let y = e.clientY - hueTop
+            const clientY = e.clientY || e.touches[0].clientY
 
-                if (y < 0) {
-                    y = 0
-                }
-                if (y > this.height) {
-                    y = this.height
-                }
+            let y = clientY - this.hueTop
 
-                this.slideHueStyle = {
-                    top: y - 2 + 'px'
-                }
-                // 如果用最大值，选择的像素会是空的，空的默认是黑色
-                const imgData = ctx.getImageData(0, Math.min(y, this.height - 1), 1, 1)
-                const [r, g, b] = imgData.data
-                this.$emit('selectHue', { r, g, b })
+            if (y < 0) {
+                y = 0
+            }
+            if (y > this.height) {
+                y = this.height
             }
 
-            mousemove(e)
+            this.slideHueStyle = {
+                top: y - 2 + 'px'
+            }
+            // 如果用最大值，选择的像素会是空的，空的默认是黑色
+            const imgData = this.ctx.getImageData(0, Math.min(y, this.height - 1), 1, 1)
+            const [r, g, b] = imgData.data
+            this.$emit('selectHue', { r, g, b })
+        },
+        changeEnd () {
+            delete this.hueTop
+            delete this.ctx
+        },
+        selectHue(e) {
+            this.changeStart(e)
+            this.change(e)
 
             const mouseup = () => {
-                document.removeEventListener('mousemove', mousemove)
+                this.changeEnd()
+                document.removeEventListener('mousemove', this.change)
                 document.removeEventListener('mouseup', mouseup)
             }
 
-            document.addEventListener('mousemove', mousemove)
+            document.addEventListener('mousemove', this.change)
             document.addEventListener('mouseup', mouseup)
+        },
+        selectHueTouch(e) {
+            this.changeStart(e)
+            this.change(e)
+
+            const touchend = () => {
+                this.changeEnd()
+                document.removeEventListener('touchmove', this.change)
+                document.removeEventListener('touchend', touchend)
+            }
+
+            document.addEventListener('touchmove', this.change)
+            document.addEventListener('touchend', touchend)
         }
     }
 }
 </script>
 
 <style lang="scss">
-.hue {
+  .hue {
     position: relative;
     margin-left: 8px;
     cursor: pointer;
     .slide {
-        position: absolute;
-        left: 0;
-        top: 100px;
-        width: 100%;
-        height: 4px;
-        background: #fff;
-        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
-        pointer-events: none;
+      position: absolute;
+      left: 0;
+      top: 100px;
+      width: 100%;
+      height: 4px;
+      background: #fff;
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
+      pointer-events: none;
     }
-}
+  }
 </style>

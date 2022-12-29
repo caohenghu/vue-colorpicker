@@ -2,6 +2,7 @@
     <div
         class="saturation"
         @mousedown.prevent.stop="selectSaturation"
+        @touchstart.prevent.stop="selectSaturationTouch"
     >
         <canvas ref="canvasSaturation" />
         <div
@@ -64,47 +65,74 @@ export default {
                 top: (1 - this.hsv.v) * this.size - 5 + 'px'
             }
         },
-        selectSaturation(e) {
-            const { top: saturationTop, left: saturationLeft } = this.$el.getBoundingClientRect()
-            const ctx = e.target.getContext('2d')
+        changeStart (e) {
+            const { top, left } = this.$el.getBoundingClientRect()
+            this.saturationLeft = left
+            this.saturationTop = top
+            this.ctx = e.target.getContext('2d')
+        },
+        change (e) {
+            if (!this.saturationLeft || !this.saturationTop || !this.ctx) return
 
-            const mousemove = e => {
-                let x = e.clientX - saturationLeft
-                let y = e.clientY - saturationTop
+            const clientX = e.clientX || e.touches[0].clientX
+            const clientY = e.clientY || e.touches[0].clientY
 
-                if (x < 0) {
-                    x = 0
-                }
-                if (y < 0) {
-                    y = 0
-                }
-                if (x > this.size) {
-                    x = this.size
-                }
-                if (y > this.size) {
-                    y = this.size
-                }
+            let x = clientX - this.saturationLeft
+            let y = clientY - this.saturationTop
 
-                // 不通过监听数据变化来修改dom，否则当颜色为#ffffff时，slide会跑到左下角
-                this.slideSaturationStyle = {
-                    left: x - 5 + 'px',
-                    top: y - 5 + 'px'
-                }
-                // 如果用最大值，选择的像素会是空的，空的默认是黑色
-                const imgData = ctx.getImageData(Math.min(x, this.size - 1), Math.min(y, this.size - 1), 1, 1)
-                const [r, g, b] = imgData.data
-                this.$emit('selectSaturation', { r, g, b })
+            if (x < 0) {
+                x = 0
+            }
+            if (y < 0) {
+                y = 0
+            }
+            if (x > this.size) {
+                x = this.size
+            }
+            if (y > this.size) {
+                y = this.size
             }
 
-            mousemove(e)
+            // 不通过监听数据变化来修改dom，否则当颜色为#ffffff时，slide会跑到左下角
+            this.slideSaturationStyle = {
+                left: x - 5 + 'px',
+                top: y - 5 + 'px'
+            }
+            // 如果用最大值，选择的像素会是空的，空的默认是黑色
+            const imgData = this.ctx.getImageData(Math.min(x, this.size - 1), Math.min(y, this.size - 1), 1, 1)
+            const [r, g, b] = imgData.data
+            this.$emit('selectSaturation', { r, g, b })
+        },
+        changeEnd () {
+            delete this.saturationTop
+            delete this.saturationLeft
+            delete this.ctx
+        },
+        selectSaturation(e) {
+            this.changeStart(e)
+            this.change(e)
 
             const mouseup = () => {
-                document.removeEventListener('mousemove', mousemove)
+                this.changeEnd()
+                document.removeEventListener('mousemove', this.change)
                 document.removeEventListener('mouseup', mouseup)
             }
 
-            document.addEventListener('mousemove', mousemove)
+            document.addEventListener('mousemove', this.change)
             document.addEventListener('mouseup', mouseup)
+        },
+        selectSaturationTouch (e) {
+            this.changeStart(e)
+            this.change(e)
+
+            const touchend = () => {
+                this.changeEnd()
+                document.removeEventListener('touchmove', this.change)
+                document.removeEventListener('touchend', touchend)
+            }
+
+            document.addEventListener('touchmove', this.change)
+            document.addEventListener('touchend', touchend)
         }
     }
 }

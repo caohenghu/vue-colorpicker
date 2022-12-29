@@ -2,6 +2,7 @@
     <div
         class="color-alpha"
         @mousedown.prevent.stop="selectAlpha"
+        @touchstart.prevent.stop="selectAlphaTouch"
     >
         <canvas ref="canvasAlpha" />
         <div
@@ -68,37 +69,58 @@ export default {
 
             this.createLinearGradient('p', ctx, width, height, 'rgba(255,255,255,0)', this.color)
         },
+        changeStart () {
+            const { top } = this.$el.getBoundingClientRect()
+            this.hueTop = top
+        },
+        change (e) {
+            const clientY = e.clientY || e.touches[0].clientY
+            let y = clientY - this.hueTop
+
+            if (y < 0) {
+                y = 0
+            }
+            if (y > this.height) {
+                y = this.height
+            }
+
+            let a = parseFloat((y / this.height).toFixed(2))
+            this.$emit('selectAlpha', a)
+        },
+        changeEnd () {
+            delete this.hueTop
+        },
         renderSlide() {
             this.slideAlphaStyle = {
                 top: this.rgba.a * this.height - 2 + 'px'
             }
         },
         selectAlpha(e) {
-            const { top: hueTop } = this.$el.getBoundingClientRect()
-
-            const mousemove = e => {
-                let y = e.clientY - hueTop
-
-                if (y < 0) {
-                    y = 0
-                }
-                if (y > this.height) {
-                    y = this.height
-                }
-
-                let a = parseFloat((y / this.height).toFixed(2))
-                this.$emit('selectAlpha', a)
-            }
-
-            mousemove(e)
+            this.changeStart()
+            this.change(e)
 
             const mouseup = () => {
-                document.removeEventListener('mousemove', mousemove)
+                this.changeEnd()
+                document.removeEventListener('mousemove', this.change)
                 document.removeEventListener('mouseup', mouseup)
             }
 
-            document.addEventListener('mousemove', mousemove)
+            document.addEventListener('mousemove', this.change)
             document.addEventListener('mouseup', mouseup)
+        },
+        selectAlphaTouch(e) {
+            this.changeStart(e)
+
+            this.change(e)
+
+            const touchend = () => {
+                this.changeEnd()
+                document.removeEventListener('touchmove', this.change)
+                document.removeEventListener('touchend', touchend)
+            }
+
+            document.addEventListener('touchmove', this.change)
+            document.addEventListener('touchend', touchend)
         }
     }
 }
