@@ -2,18 +2,21 @@
     <div
         class="color-alpha"
         @mousedown.prevent.stop="selectAlpha"
+        @touchstart.prevent.stop="selectAlphaTouch"
     >
         <canvas ref="canvasAlpha" />
-        <div
-            :style="slideAlphaStyle"
-            class="slide"
-        />
+        <Slide :style="slideAlphaStyle" />
     </div>
 </template>
 
 <script>
 import mixin from './mixin'
+import Slide from './Slide.vue'
+
 export default {
+    components: {
+        Slide
+    },
     mixins: [mixin],
     props: {
         color: {
@@ -43,7 +46,7 @@ export default {
         color() {
             this.renderColor()
         },
-        'rgba.a'() {
+        'rgba'() {
             this.renderSlide()
         }
     },
@@ -68,37 +71,59 @@ export default {
 
             this.createLinearGradient('p', ctx, width, height, 'rgba(255,255,255,0)', this.color)
         },
+        changeStart () {
+            const { top } = this.$el.getBoundingClientRect()
+            this.hueTop = top
+        },
+        change (e) {
+            const clientY = e.clientY || e.touches[0].clientY
+            let y = clientY - this.hueTop
+
+            if (y < 0) {
+                y = 0
+            }
+            if (y > this.height) {
+                y = this.height
+            }
+
+            let a = parseFloat((y / this.height).toFixed(2))
+            this.$emit('selectAlpha', a)
+        },
+        changeEnd () {
+            delete this.hueTop
+        },
         renderSlide() {
+            const { r, g, b, a } = this.rgba
             this.slideAlphaStyle = {
-                top: this.rgba.a * this.height - 2 + 'px'
+                top: a * this.height - 2 + 'px',
+                background: `rgba(${r}, ${g}, ${b}, ${a})`
             }
         },
         selectAlpha(e) {
-            const { top: hueTop } = this.$el.getBoundingClientRect()
-
-            const mousemove = e => {
-                let y = e.clientY - hueTop
-
-                if (y < 0) {
-                    y = 0
-                }
-                if (y > this.height) {
-                    y = this.height
-                }
-
-                let a = parseFloat((y / this.height).toFixed(2))
-                this.$emit('selectAlpha', a)
-            }
-
-            mousemove(e)
+            this.changeStart()
+            this.change(e)
 
             const mouseup = () => {
-                document.removeEventListener('mousemove', mousemove)
+                this.changeEnd()
+                document.removeEventListener('mousemove', this.change)
                 document.removeEventListener('mouseup', mouseup)
             }
 
-            document.addEventListener('mousemove', mousemove)
+            document.addEventListener('mousemove', this.change)
             document.addEventListener('mouseup', mouseup)
+        },
+        selectAlphaTouch(e) {
+            this.changeStart(e)
+            this.change(e)
+
+            const touchend = () => {
+                this.changeEnd()
+                document.removeEventListener('touchmove', this.change)
+                document.removeEventListener('touchend', touchend)
+            }
+
+            document.addEventListener('touchmove', this.change)
+            document.addEventListener('touchend', touchend)
         }
     }
 }
@@ -107,17 +132,7 @@ export default {
 <style lang="scss">
 .color-alpha {
     position: relative;
-    margin-left: 8px;
+    margin-left: 12px;
     cursor: pointer;
-    .slide {
-        position: absolute;
-        left: 0;
-        top: 100px;
-        width: 100%;
-        height: 4px;
-        background: #fff;
-        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
-        pointer-events: none;
-    }
 }
 </style>

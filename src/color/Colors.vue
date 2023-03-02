@@ -98,6 +98,10 @@ export default {
 .colors {
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
     &.history {
         margin-top: 10px;
         border-top: 1px solid #2e333a;
