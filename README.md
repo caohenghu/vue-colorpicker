@@ -33,14 +33,14 @@ $ yarn add @caohenghu/vue-colorpicker
 
     export default {
         components: {
-            colorPicker
+            colorPicker,
         },
         data() {
             return {
                 color: '#59c7f9',
                 suckerCanvas: null,
                 suckerArea: [],
-                isSucking: false
+                isSucking: false,
             }
         },
         methods: {
@@ -56,8 +56,8 @@ $ yarn add @caohenghu/vue-colorpicker
                 } else {
                     // this.suckerCanvas && this.suckerCanvas.remove
                 }
-            }
-        }
+            },
+        },
     }
 </script>
 ```
@@ -84,3 +84,10 @@ $ yarn add @caohenghu/vue-colorpicker
 | openSucker  | Function | isOpen | `true` or `false`               |
 
 > if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary. when you click sucker button, you can click it again or press key of `esc` to exit.
+
+## Donate
+
+[<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/paypal.png"
+      alt="Donate with PayPal"
+      height="80">](https://paypal.me/caohenghu?country.x=C2&locale.x=zh_XC)
+![weinxin](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/weixin.png)
