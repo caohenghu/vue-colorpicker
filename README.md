@@ -91,5 +91,5 @@ $ yarn add @caohenghu/vue-colorpicker
       alt="Donate with PayPal"
       height="80">](https://paypal.me/caohenghu?country.x=C2&locale.x=zh_XC)
 [<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/weixin.jpg"
-      alt="Donate with PayPal"
-      height="300">](https://paypal.me/caohenghu?country.x=C2&locale.x=zh_XC)
+alt="Donate with wechat"
+height="300">]
