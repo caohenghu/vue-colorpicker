@@ -90,4 +90,4 @@ $ yarn add @caohenghu/vue-colorpicker
 [<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/paypal.png"
       alt="Donate with PayPal"
       height="80">](https://paypal.me/caohenghu?country.x=C2&locale.x=zh_XC)
-![weinxin](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/weixin.png)
+![weinxin](https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/weixin.jpg)
