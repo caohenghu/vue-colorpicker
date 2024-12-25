@@ -74,7 +74,7 @@ $ yarn add @caohenghu/vue-colorpicker
 | sucker-canvas      | HTMLCanvasElement | `null`                                                                                                                                                                                   | like `document.createElement('canvas')` |
 | sucker-area        | Array             | `[]`                                                                                                                                                                                     | like `[x1, y1, x2, y2]`                 |
 
-> `color` is one-way data flow, so you can't use `v-model`. why? because you'll listen `changeColor` event do more things, so i think it's not necessary here.
+`color` is one-way data flow, so you can't use `v-model`. why? because you'll listen `changeColor` event do more things, so i think it's not necessary here.
 
 ## Events
 
@@ -83,7 +83,7 @@ $ yarn add @caohenghu/vue-colorpicker
 | changeColor | Function | color  | `{ rgba: {}, hsv: {}, hex: ''}` |
 | openSucker  | Function | isOpen | `true` or `false`               |
 
-> if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary. when you click sucker button, you can click it again or press key of `esc` to exit.
+if you want use sucker, then `openSucker`, `sucker-hide`, `sucker-canvas`, `sucker-area` is necessary. when you click sucker button, you can click it again or press key of `esc` to exit.
 
 ## Donate
 
@@ -93,6 +93,6 @@ please have a cup of coffee for the author.
 [<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/paypal.png"
       alt="Donate with PayPal"
       height="80">](https://paypal.me/caohenghu?country.x=C2&locale.x=zh_XC)
-<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/weixin.jpg"
+<img src="https://raw.githubusercontent.com/caohenghu/vue-colorpicker/master/src/img/wechat.jpg"
 alt="Donate with wechat"
 height="300">
